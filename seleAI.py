@@ -7,15 +7,7 @@ class SeleBardHelper:
         print("Đang khởi động trình duyệt tự động hóa...")
         self.prompt_count = 0
         self.driver = uc.Chrome()
-        self.driver.get("https://bard.google.com/?hl=en")
-
-        while True:
-            try:
-                self.driver.find_elements(By.CSS_SELECTOR, "a.gb_wa.gb_gd.gb_Id.gb_ge.gb_j")[0].click()
-            except:
-                time.sleep(1)
-            else:
-                break
+        self.driver.get("https://accounts.google.com/ServiceLogin?passive=1209600&continue=https://bard.google.com/?hl%3Den&followup=https://bard.google.com/?hl%3Den&hl=en&ec=GAZAkgU")
 
         input("\n\n--------------------\nĐăng nhập tài khoản Google, khi hoàn tất. Quay lại cửa sổ Console và bấm Enter để tiếp tục.\n--------------------\n\n")
         time.sleep(1)

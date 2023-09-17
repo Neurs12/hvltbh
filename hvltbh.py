@@ -9,4 +9,4 @@ print("Đăng nhập thành công!\n")
 
 selected_option = hoptions.request_option()
 
-test_result = [getter.test_riel, getter.test_demo][selected_option](exam_data)
+[getter.test_riel, getter.test_demo][selected_option](exam_data)
