@@ -1,54 +1,31 @@
 import undetected_chromedriver as uc
-from selenium.webdriver.common.by import By
-import time
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.service import Service as ChromeService
+import bardapi
 
 class SeleBardHelper:
     def init(self):
         print("Đang khởi động trình duyệt tự động hóa...")
-        self.prompt_count = 0
-        self.driver = uc.Chrome()
-        self.driver.get("https://accounts.google.com/ServiceLogin?passive=1209600&continue=https://bard.google.com/?hl%3Den&followup=https://bard.google.com/?hl%3Den&hl=en&ec=GAZAkgU")
+        driver = uc.Chrome(service=ChromeService(ChromeDriverManager().install()))
+        driver.get("https://accounts.google.com/ServiceLogin?passive=true&continue=https://bard.google.com/")
 
-        input("\n\n--------------------\nĐăng nhập tài khoản Google, khi hoàn tất. Quay lại cửa sổ Console và bấm Enter để tiếp tục.\n--------------------\n\n")
-        time.sleep(1)
-        while True:
-            if len(self.driver.find_elements(By.CSS_SELECTOR, "textarea.textarea")) == 0:
-                self.driver.find_elements(By.CSS_SELECTOR, "terms-of-service.tos-button.ng-star-inserted")[0].click()
-                while True:
-                    try: self.driver.find_elements(By.CSS_SELECTOR, "button.more-button")[0].click()
-                    except: time.sleep(1)
+        input("\n\n------------------------------------------------------------------------------------------------------------------------\nĐăng nhập tài khoản Google, chấp nhận điều khoản và vào trang chính, khi hoàn tất. Quay lại cửa sổ console và bấm Enter để tiếp tục.\n------------------------------------------------------------------------------------------------------------------------\n\n")
 
-                    try: self.driver.find_elements(By.CSS_SELECTOR, "button.agree-button")[0].click()
-                    except: time.sleep(1)
-                    else: break
-                    
-                while True:
-                    try: self.driver.find_elements(By.CSS_SELECTOR, "button.disclaimer-close-button")[0].click()
-                    except: time.sleep(1)
-                    else: break
-            break
+        cookies = driver.get_cookies()
 
-        self.input_field = self.driver.find_elements(By.CSS_SELECTOR, "textarea.textarea")[0]
-        self.send_button = self.driver.find_elements(By.CSS_SELECTOR, "div.send-button-container.ng-star-inserted")[0]
+        target_token = ""
+
+        for cookie in cookies:
+            if cookie["name"] == "__Secure-1PSID":
+                target_token = cookie["value"]
+
+        self.bardInter = bardapi.Bard(token=target_token)
+
+        driver.close()
     
     def prompt(self, text: str):
-        
-        self.input_field.send_keys(text)
-        self.send_button.click()
-        
-        time.sleep(1)
-
-        response_text = None
-        while True:
-            try:
-                response_text = self.driver.find_elements(By.CSS_SELECTOR, "div.response-container-content")[self.prompt_count].get_attribute("innerText")
-                if response_text != "":
-                    break
-            except:
-                time.sleep(1)
-        self.prompt_count += 1
-
-        return response_text
-    
-    def close(self):
-        self.driver.close()
+        res = self.bardInter.get_answer(text)["content"]
+        print("\n\n------------------------------------------------------ DEBUG RESPONSE ------------------------------------------------------\n\n")
+        print(res, end="\n\n")
+        print("\n------------------------------------------------------ DEBUG RESPONSE ------------------------------------------------------\n")
+        return res

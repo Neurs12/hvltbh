@@ -1,16 +1,15 @@
-import os
+import random
 
-def request_option() -> int:
-    print("Chọn loại test:\n\n1. Làm bài test chính thức.\n2. Làm bài test thử.")
+def request_confirm() -> bool:
+    code = random.randint(2141, 99999)
+    print(f"Trước khi bắt đầu:\n\n1. Chương trình sử dụng Google Bard với mục đích trả lời những câu hỏi.\n2. Kết quả sẽ ngẫu nhiên tùy theo câu trả lời của AI vì tính chính xác chưa cao, trong khoảng từ 150 đến 250 điểm.\n3. Chịu trách nhiệm khi bị phát hiện :).\n4. Điền OK và thêm vào đó mã xác nhận. (VD: \"OK <Mã>\")\nMã: {code}")
 
-    test_option = input("> ")
 
-    if test_option == "1":
-        return 0
-        
-    if test_option == "2":
-        return 1
-    
-    os.system("cls")
 
-    return request_option()
+    confirm = input("> ")
+
+    if confirm == f"OK {code}":
+        return True
+    else:
+        input("\nMã sai. Enter để thoát chương trình.")
+        exit()
