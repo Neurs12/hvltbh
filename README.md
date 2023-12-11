@@ -1,20 +1,19 @@
 ## HVLTLB Helper
-This is a cheat tool, I discourage the use of this tool to for competition ([hocvalamtheoloibac](https://hocvalamtheobac.vn/)).
+This is a cheat tool, I discourage the use of this tool to get high score in [hocvalamtheoloibac](https://hocvalamtheobac.vn/) competition.
 
 Please keep a fair ground for everyone!
 
 ### Then why you made one in the first place?
-I'm bored, I wanna see how long until someone found out (which they didn't).
+I'm bored, I wanna see how long until someone finds out that I used cheat tool (which they didn't, and I'm sorry).
 
 ### Behind the scene?
-```
-Rules:
-  - Make user feels like a hacker by asking them to type something to confirm the choice of using this tool.
-  - Don't care about login credentials. Because why would I want to get your accounts?
-  - Always send requests with a normal browser headers to avoid suspicion from the contest hosting server.
-  - Send to server with timed requests to avoid `0 second` result.
-```
-Kind of straightforward:
+**Rules**:
+- Make user feels like a hacker by asking them to type something to confirm the choice of using this tool.
+- Don't care about login credentials. Because why would I want to get your accounts?
+- Always send requests with a normal browser header to avoid suspicion from the contest hosting server.
+- Send to the server with timed requests to avoid `0 second` result.
+
+**The process**:
 - First, the tool will ask for hvltlb account details, remember not to use all of your trials, this tool can't give you more chances.
 - Then it will get some of your information to display to confirm the account.
 - When you make sure that the account is the right one and you want to become the `dirty little cheater`, we'll move on to the fun part!
